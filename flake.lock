@@ -30,11 +30,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762698035,
-        "narHash": "sha256-VyDaxG8xz4SgFHlgesHC8qGdGHw7NnEr74LDMxwiVBs=",
+        "lastModified": 1762717627,
+        "narHash": "sha256-F0A823qgBY7FnR1ii9ptPxye8TmBkPQynR52ofqNJCA=",
         "owner": "stefano-m",
         "repo": "lua-connman_dbus",
-        "rev": "5d64fb379da761b80918ba98fb00fbb5c1755151",
+        "rev": "ffccac703e12ea25aacbdcdf567f9d630bc0faa2",
         "type": "github"
       },
       "original": {
