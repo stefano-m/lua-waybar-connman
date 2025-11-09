@@ -3,7 +3,7 @@ local GLib = require("lgi").GLib
 local json = require("cjson.safe")
 local string = string
 local arg = arg
-
+local io = io
 local SIGINT = 2
 local SIGTERM = 15
 
@@ -98,5 +98,6 @@ local function run()
 end
 
 if arg and arg[1] == "run" then
+  io.stdout:setvbuf("no")       -- unbuffered output
   run()
 end
