@@ -1,0 +1,12 @@
+#custom-connman {
+  color: @blue;
+}
+
+#custom-connman.error,
+#custom-connman.quit {
+  color: @red;
+}
+
+#custom-connman.disconnected {
+    color: @yellow;
+}
