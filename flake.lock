@@ -1,0 +1,72 @@
+{
+  "nodes": {
+    "dbusProxyFlake": {
+      "inputs": {
+        "nixpkgs": [
+          "lua-connman_dbus",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1728059735,
+        "narHash": "sha256-AeKYKaPYADWkufB9OicPNTrcm1mQfkuMI+7WKidppNw=",
+        "owner": "stefano-m",
+        "repo": "lua-dbus_proxy",
+        "rev": "986bf1a4dc481a753c812c6035d2277a149c9b2a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stefano-m",
+        "ref": "master",
+        "repo": "lua-dbus_proxy",
+        "type": "github"
+      }
+    },
+    "lua-connman_dbus": {
+      "inputs": {
+        "dbusProxyFlake": "dbusProxyFlake",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762698035,
+        "narHash": "sha256-VyDaxG8xz4SgFHlgesHC8qGdGHw7NnEr74LDMxwiVBs=",
+        "owner": "stefano-m",
+        "repo": "lua-connman_dbus",
+        "rev": "5d64fb379da761b80918ba98fb00fbb5c1755151",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stefano-m",
+        "ref": "master",
+        "repo": "lua-connman_dbus",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1762498405,
+        "narHash": "sha256-Zg/SCgCaAioc0/SVZQJxuECGPJy+OAeBcGeA5okdYDc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6faeb062ee4cf4f105989d490831713cc5a43ee1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "lua-connman_dbus": "lua-connman_dbus",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
