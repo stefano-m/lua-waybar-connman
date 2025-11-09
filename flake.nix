@@ -18,44 +18,53 @@
       currentVersion = "0.1";
 
       buildPackage = pname: luaPackages: with luaPackages;
-        buildLuaPackage rec {
-          name = "${pname}-${version}";
-          inherit pname;
-          version = "${currentVersion}-${self.shortRev or "dev"}";
+        let
+          derivationData = rec {
+            name = "${pname}-${version}";
+            inherit pname;
+            version = "${currentVersion}-${self.shortRev or "dev"}";
 
-          src = ./.;
+            src = ./.;
 
-          propagatedBuildInputs = [ lua lgi cjson connman_dbus flakePkgs.glib ];
+            propagatedBuildInputs = [ lua lgi cjson connman_dbus flakePkgs.glib ];
 
-          buildInputs = [ luacheck ];
+            nativeBuildInputs = [
+              flakePkgs.makeWrapper
+            ];
 
-          nativeBuildInputs = [
-            flakePkgs.makeWrapper
-          ];
+            buildPhase = ":";
 
-          buildPhase = ":";
+            installPhase = with flakePkgs; ''
+              mkdir -p "$out/share/lua/${lua.luaversion}"
+              cp -r src/${pname}.lua $out/share/lua/${lua.luaversion}/
+              chmod +x $out/share/lua/${lua.luaversion}/${pname}.lua
 
-          # FIXME: LUA_PATH brings in the test dependencies too that I don't
-          # really need and make the closure bigger!
-          installPhase = with flakePkgs; ''
-            mkdir -p "$out/share/lua/${lua.luaversion}"
-            cp -r src/${pname}.lua $out/share/lua/${lua.luaversion}/
-            chmod +x $out/share/lua/${lua.luaversion}/${pname}.lua
+              mkdir -p $out/bin
+              makeWrapper $out/share/lua/${lua.luaversion}/${pname}.lua $out/bin/${pname} \
+                  --set-default LUA_PATH ";;" \
+                  --suffix LUA_PATH ';' "$LUA_PATH" \
+                  --set-default LUA_CPATH ";;" \
+                  --suffix LUA_CPATH ';' "$LUA_CPATH" \
+                  --set-default GI_TYPELIB_PATH : \
+                  --suffix GI_TYPELIB_PATH : ${lib.getLib glib}/lib/girepository-1.0
+            '';
 
-            mkdir -p $out/bin
-            makeWrapper $out/share/lua/${lua.luaversion}/${pname}.lua $out/bin/${pname} \
-                --set-default LUA_PATH ";;" \
-                --suffix LUA_PATH ';' "$LUA_PATH" \
-                --set-default LUA_CPATH ";;" \
-                --suffix LUA_CPATH ';' "$LUA_CPATH" \
-                --set-default GI_TYPELIB_PATH : \
-                --suffix GI_TYPELIB_PATH : ${lib.getLib glib}/lib/girepository-1.0
-          '';
+            doCheck = false;
+            checkPhase = ":";
+          };
 
-          doCheck = true;
-          checkPhase = "luacheck src";
+          derivationData' = derivationData // {
+            passthru.tests = buildLuaPackage (derivationData // {
+              # Doing this so the luackeck dependencies don't end up in the
+              # clousre and included in the wrapped script.
+              buildInputs = [ luacheck ];
+              doCheck = true;
+              checkPhase = "luacheck src";
+            });
+          };
 
-        };
+        in
+        buildLuaPackage derivationData';
 
     in
     {
