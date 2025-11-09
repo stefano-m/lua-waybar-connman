@@ -10,13 +10,20 @@ local SIGTERM = 15
 local function format(service)
 
   local css_class = "disconnected"
+  local text = service.State
 
   if service.State == "ready" or service.State == "online" then
     css_class = "connected"
+    text = service.Strength and (service.Strength .. "%") or service.State
+  end
+
+  if service.State == "failure" then
+    css_class = "error"
+    text = service.Error
   end
 
   return {
-    text = service.State,
+    text = text,
     alt =  service.Type,
     tooltip =  string.format("%s (%s - %s)%s",
                              service.Name or "<hidden>",
