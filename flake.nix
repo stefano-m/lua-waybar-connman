@@ -34,7 +34,7 @@
 
             buildPhase = ":";
 
-            installPhase = with flakePkgs; ''
+            installPhase = ''
               mkdir -p "$out/share/lua/${lua.luaversion}"
               cp -r src/${pname}.lua $out/share/lua/${lua.luaversion}/
               chmod +x $out/share/lua/${lua.luaversion}/${pname}.lua
@@ -46,7 +46,7 @@
                   --set-default LUA_CPATH ";;" \
                   --suffix LUA_CPATH ';' "$LUA_CPATH" \
                   --set-default GI_TYPELIB_PATH : \
-                  --suffix GI_TYPELIB_PATH : ${lib.getLib glib}/lib/girepository-1.0
+                  --suffix GI_TYPELIB_PATH : ${flakePkgs.lib.getLib flakePkgs.glib}/lib/girepository-1.0
             '';
 
             doCheck = false;
