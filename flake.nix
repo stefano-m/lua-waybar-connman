@@ -73,7 +73,6 @@
         lua_waybar_connman = buildPackage "waybar_connman" flakePkgs.luaPackages;
         lua52_waybar_connman = buildPackage "waybar_connman" flakePkgs.lua52Packages;
         lua53_waybar_connman = buildPackage "waybar_connman" flakePkgs.lua53Packages;
-        luajit_waybar_connman = buildPackage "waybar_connman" flakePkgs.luajitPackages;
       };
 
       overlays.default = final: prev:
@@ -92,10 +91,6 @@
 
             lua53Packages = prev.lua53Packages // {
               waybar_connman = lua53_waybar_connman;
-            };
-
-            luajitPackages = prev.luajitPackages // {
-              waybar_connman = luajit_waybar_connman;
             };
 
           };
