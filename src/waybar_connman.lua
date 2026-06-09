@@ -16,6 +16,7 @@
   limitations under the License.
 ]]
 local GLib = require("lgi").GLib
+local GLibUnix = require("lgi").GLibUnix
 local json = require("cjson.safe")
 local string = string
 local arg = arg
@@ -114,8 +115,8 @@ local function run()
     main_loop:quit()
   end
 
-  GLib.unix_signal_add(GLib.PRIORITY_HIGH, SIGINT, exit_on_signal)
-  GLib.unix_signal_add(GLib.PRIORITY_HIGH, SIGTERM, exit_on_signal)
+  GLibUnix.signal_add(GLib.PRIORITY_HIGH, SIGINT, exit_on_signal)
+  GLibUnix.signal_add(GLib.PRIORITY_HIGH, SIGTERM, exit_on_signal)
 
   main_loop:run()
 end

@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     lua-connman_dbus.url = "github:stefano-m/lua-connman_dbus/master";
     lua-connman_dbus.inputs.nixpkgs.follows = "nixpkgs";
